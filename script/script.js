@@ -13,7 +13,14 @@ const jumpStrength = -12;
 const speed = 5;
 let onGround = false;
 
-
+// Platformen array: [x, y, width, height]
+const platforms = [
+  [0, 400, 800, 50],  // Grond
+  [200, 350, 100, 20],
+  [400, 300, 100, 20],
+  [600, 250, 100, 20],
+];
+// Game loop
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   updatePlayer();
