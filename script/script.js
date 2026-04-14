@@ -54,6 +54,13 @@ function drawPlayer() {
   ctx.stroke();
 }
 
+// Teken platformen
+function drawPlatforms() {
+  ctx.fillStyle = "green";
+  platforms.forEach(platform => {
+    ctx.fillRect(platform[0], platform[1], platform[2], platform[3]);
+  });
+}
 
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
