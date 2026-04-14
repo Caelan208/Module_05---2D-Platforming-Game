@@ -26,7 +26,35 @@ function drawPlayer() {
   ctx.strokeStyle = "black";
   ctx.lineWidth = 2;
 
- 
+  // Hoofd
+  ctx.beginPath();
+  ctx.arc(playerX + playerWidth / 2, playerY + 10, 8, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // Lichaam
+  ctx.beginPath();
+  ctx.moveTo(playerX + playerWidth / 2, playerY + 18);
+  ctx.lineTo(playerX + playerWidth / 2, playerY + 30);
+  ctx.stroke();
+
+  // Armen
+  ctx.beginPath();
+  ctx.moveTo(playerX + playerWidth / 2, playerY + 22);
+  ctx.lineTo(playerX + 5, playerY + 25);
+  ctx.moveTo(playerX + playerWidth / 2, playerY + 22);
+  ctx.lineTo(playerX + playerWidth - 5, playerY + 25);
+  ctx.stroke();
+
+  // Benen
+  ctx.beginPath();
+  ctx.moveTo(playerX + playerWidth / 2, playerY + 30);
+  ctx.lineTo(playerX + 5, playerY + playerHeight);
+  ctx.moveTo(playerX + playerWidth / 2, playerY + 30);
+  ctx.lineTo(playerX + playerWidth - 5, playerY + playerHeight);
+  ctx.stroke();
+}
+
+
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   updatePlayer();
