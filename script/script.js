@@ -20,7 +20,13 @@ const platforms = [
   [400, 300, 100, 20],
   [600, 250, 100, 20],
 ];
-// Game loop
+
+// Teken stickman speler
+function drawPlayer() {
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 2;
+
+ 
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   updatePlayer();
