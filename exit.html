@@ -1,1 +1,78 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Exit Game</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #333;
+        }
+        .container {
+            text-align: center;
+            background-color: #222;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            color: white;
+            margin-bottom: 30px;
+        }
+        button {
+            padding: 12px 30px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button.quit-btn {
+            background-color: #f44336;
+        }
+        button.quit-btn:hover {
+            background-color: #da190b;
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Thanks for Playing Word Adventure!</h1>
+        <button class="quit-btn" onclick="quitGame()">Quit Game</button>
+        <a href="index.html"><button>Back to Menu</button></a>
+    </div>
 
+    <script>
+        function quitGame() {
+            // Try to close the window
+            if (window.self !== window.top) {
+                // If in an iframe, go back
+                window.history.back();
+            } else {
+                // Try to close the browser tab
+                window.close();
+                // If that doesn't work (most browsers block this), go to a blank page
+                if (!window.closed) {
+                    alert("Game closed! You can close this tab now.");
+                    window.location.href = "about:blank";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
