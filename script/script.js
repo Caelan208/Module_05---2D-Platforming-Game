@@ -16,10 +16,22 @@ let onGround = false;
 // Platformen array: [x, y, width, height]
 const platforms = [
   [0, 400, 800, 50],  // Grond
-  [200, 350, 100, 20],
-  [400, 300, 100, 20],
-  [600, 250, 100, 20],
+  [150, 330, 120, 20],
+  [330, 290, 140, 20],
+  [540, 250, 120, 20],
+  [80, 210, 120, 20],
+  [300, 150, 120, 20],
+  [520, 110, 180, 20],
 ];
+
+const sentenceItems = [
+  { x: 170, y: 300, width: 120, height: 20, text: "Spring omhoog", collected: false },
+  { x: 360, y: 260, width: 140, height: 20, text: "Verzamel zinnen", collected: false },
+  { x: 580, y: 210, width: 160, height: 20, text: "Goed gedaan", collected: false },
+  { x: 30, y: 360, width: 120, height: 20, text: "Start hier", collected: false },
+];
+
+const collectedSentences = [];
 
 // Teken stickman speler
 function drawPlayer() {
@@ -110,6 +122,8 @@ function updatePlayer() {
     }
   });
 
+  checkSentencePickup();
+
   // Houd speler binnen canvas
   if (playerX < 0) playerX = 0;
   if (playerX + playerWidth > canvas.width) playerX = canvas.width - playerWidth;
@@ -118,6 +132,45 @@ function updatePlayer() {
     velocityY = 0;
     onGround = true;
   }
+}
+
+function drawSentences() {
+  ctx.fillStyle = "#fffa65";
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 2;
+  ctx.font = "14px Arial";
+  sentenceItems.forEach(item => {
+    if (!item.collected) {
+      ctx.fillRect(item.x, item.y, item.width, item.height);
+      ctx.strokeRect(item.x, item.y, item.width, item.height);
+      ctx.fillStyle = "black";
+      ctx.fillText(item.text, item.x + 5, item.y + 14);
+      ctx.fillStyle = "#fffa65";
+    }
+  });
+}
+
+function drawHUD() {
+  ctx.fillStyle = "white";
+  ctx.font = "18px Arial";
+  ctx.fillText(`Zinnen opgepakt: ${collectedSentences.length}/${sentenceItems.length}`, 10, 25);
+  ctx.font = "14px Arial";
+  collectedSentences.forEach((text, index) => {
+    ctx.fillText(text, 10, 45 + index * 18);
+  });
+}
+
+function checkSentencePickup() {
+  sentenceItems.forEach(item => {
+    if (!item.collected &&
+        playerX < item.x + item.width &&
+        playerX + playerWidth > item.x &&
+        playerY < item.y + item.height &&
+        playerY + playerHeight > item.y) {
+      item.collected = true;
+      collectedSentences.push(item.text);
+    }
+  });
 }
 
 // Toetsen tracking
@@ -138,7 +191,9 @@ function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   updatePlayer();
   drawPlatforms();
+  drawSentences();
   drawPlayer();
+  drawHUD();
   requestAnimationFrame(gameLoop);
 }
 
