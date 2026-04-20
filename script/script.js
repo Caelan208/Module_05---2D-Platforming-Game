@@ -3,32 +3,32 @@ const ctx = canvas.getContext("2d");
 
 // Speler variabelen
 let playerX = 100;
-let playerY = 300;
+let playerY = 170;
 let playerWidth = 20;
 let playerHeight = 40;
 let velocityX = 0;
 let velocityY = 0;
 const gravity = 0.5;
-const jumpStrength = -12;
+const jumpStrength = -10;
 const speed = 5;
 let onGround = false;
 
 // Platformen array: [x, y, width, height]
 const platforms = [
-  [0, 400, 800, 50],  // Grond
-  [150, 330, 120, 20],
-  [330, 290, 140, 20],
-  [540, 250, 120, 20],
-  [80, 210, 120, 20],
-  [300, 150, 120, 20],
-  [520, 110, 180, 20],
+  [0, 400, 800, 50],  // Grond, 1=x 2=y 3=width 4=height
+  [120, 340, 120, 20], // Eerste platform
+  [400, 310, 140, 20], // Tweede platform
+  [600, 250, 120, 20], // Derde platform
+  [80, 210, 120, 20], // Vierde platform
+  [300, 150, 120, 20], // Vijfde platform
+  [520, 110, 180, 20], // Zesde platform
 ];
 
 const sentenceItems = [
-  { x: 170, y: 300, width: 120, height: 20, text: "Spring omhoog", collected: false },
-  { x: 360, y: 260, width: 140, height: 20, text: "Verzamel zinnen", collected: false },
-  { x: 580, y: 210, width: 160, height: 20, text: "Goed gedaan", collected: false },
-  { x: 30, y: 360, width: 120, height: 20, text: "Start hier", collected: false },
+  { x: 170, y: 300, width: 50, height: 20, text: "houdt", collected: false },
+  { x: 360, y: 260, width: 50, height: 20, text: "van", collected: false },
+  { x: 580, y: 210, width: 50, height: 20, text: "Rafael", collected: false },
+  { x: 600, y: 360, width: 50, height: 20, text: "ids", collected: false },
 ];
 
 const collectedSentences = [];
