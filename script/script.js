@@ -33,6 +33,10 @@ const sentenceItems = [
 
 const collectedSentences = [];
 
+// Correct order of words to win
+const correctOrder = ["ids", "houdt", "van", "Rafael"];
+let gameWon = false;
+
 // Teken stickman speler
 function drawPlayer() {
   ctx.strokeStyle = "white";
@@ -135,7 +139,7 @@ function updatePlayer() {
 }
 
 function drawSentences() {
-  ctx.fillStyle = "#fffa65";
+  ctx.fillStyle = "#ffd700";
   ctx.strokeStyle = "black";
   ctx.lineWidth = 2;
   ctx.font = "14px Arial";
@@ -145,7 +149,7 @@ function drawSentences() {
       ctx.strokeRect(item.x, item.y, item.width, item.height);
       ctx.fillStyle = "black";
       ctx.fillText(item.text, item.x + 5, item.y + 14);
-      ctx.fillStyle = "#fffa65";
+      ctx.fillStyle = "#ffd700";
     }
   });
 }
@@ -158,6 +162,17 @@ function drawHUD() {
   collectedSentences.forEach((text, index) => {
     ctx.fillText(text, 10, 45 + index * 18);
   });
+  
+  // Display win message
+  if (gameWon) {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#FFD700";
+    ctx.font = "bold 60px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText("YOU WIN!", canvas.width / 2, canvas.height / 2);
+    ctx.textAlign = "left";
+  }
 }
 
 function checkSentencePickup() {
@@ -169,6 +184,12 @@ function checkSentencePickup() {
         playerY + playerHeight > item.y) {
       item.collected = true;
       collectedSentences.push(item.text);
+      
+      // Check if current collection matches the correct order
+      if (collectedSentences.join(" ") === correctOrder.join(" ")) {
+        gameWon = true;
+        alert("🎉 You Win! 🎉\nYou collected: " + collectedSentences.join(" "));
+      }
     }
   });
 }
