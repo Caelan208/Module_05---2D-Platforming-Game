@@ -36,6 +36,7 @@ const collectedSentences = [];
 // Correct order of words to win
 const correctOrder = ["ids", "houdt", "van", "Rafael"];
 let gameWon = false;
+let gameLost = false;
 
 // Teken stickman speler
 function drawPlayer() {
@@ -173,6 +174,20 @@ function drawHUD() {
     ctx.fillText("YOU WIN!", canvas.width / 2, canvas.height / 2);
     ctx.textAlign = "left";
   }
+  
+  // Display lose message
+  if (gameLost) {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#FF0000";
+    ctx.font = "bold 60px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText("YOU LOSE!", canvas.width / 2, canvas.height / 2);
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = "20px Arial";
+    ctx.fillText("Wrong order!", canvas.width / 2, canvas.height / 2 + 50);
+    ctx.textAlign = "left";
+  }
 }
 
 function checkSentencePickup() {
@@ -188,7 +203,13 @@ function checkSentencePickup() {
       // Check if current collection matches the correct order
       if (collectedSentences.join(" ") === correctOrder.join(" ")) {
         gameWon = true;
-        alert("🎉 You Win! 🎉\nYou collected: " + collectedSentences.join(" "));
+        alert(" You Win! \nYou collected: " + collectedSentences.join(" "));
+      }
+      
+      // Check if all words are collected but in wrong order
+      if (collectedSentences.length === sentenceItems.length && !gameWon) {
+        gameLost = true;
+        alert(" You Lose! \nWrong order! You collected: " + collectedSentences.join(" "));
       }
     }
   });
